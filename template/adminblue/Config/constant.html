@@ -1,0 +1,74 @@
+{extend name="adminblue/base" /}
+{block name="resources"/}
+<link rel="stylesheet" type="text/css" href="ADMIN_CSS/defau.css">
+<script src="ADMIN_JS/art_dialog.source.js"></script>
+<script src="ADMIN_JS/iframe_tools.source.js"></script>
+<script src="ADMIN_JS/material_managedialog.js"></script>
+<style>
+.btn-common, .btn-common-cancle {
+    margin: 15px 0 5px 226px !important;
+}
+</style>
+{/block}
+{block name="main"}
+<div class="main-content" id="mainContent">
+<div class="alert mt10 top-alert" style="clear:both;">
+	
+</div>
+<div class="set-style">
+	<dl>
+	{foreach name="res" item="info" key="k"}
+		<dt>{$info[name]}:</dt>
+		<dd>
+			<input id="constantId{$k}" type="hidden" value="{$info[id]}" />
+			<input id="constant{$k}" type="text" value="{$info[val]}" />
+<!-- 			<p class="hint">提现金额将不小于此值才能提现</p> -->
+			<button  onclick="setConstantAjax({$k});">提交</button>
+		</dd>
+	{/foreach}
+	</dl>
+	
+	
+	
+</div>
+<script src="ADMIN_JS/ajax_file_upload.js" type="text/javascript"></script>
+<script src="__STATIC__/js/file_upload.js" type="text/javascript"></script>
+<script>
+
+
+	function setConstantAjax($k) {
+		
+		var constant = $("#constant"+$k).val();
+		var constantId = $("#constantId"+$k).val();
+			$.ajax({
+				type : "post",
+				url : "{:__URL('ADMIN_MAIN/config/updateConstant')}",
+				data : {
+					'id' : constantId,
+					'val' : constant
+					
+				},
+				success : function(data) {
+					//alert(JSON.stringify(data));
+					if (data['code'] > 0) {
+						showMessage('success',"提交成功");
+					} else {
+						showMessage('error',"提交失败");
+					}
+				}
+			});
+		
+	}
+	window.onload=function(){
+		var is_open = $("#is_open").val();
+		if(is_open == ''){
+			is_open = 0;
+		}
+		if(parseInt(is_open) == 0){
+			$("#enableNo").prop("checked","checked");
+		}else{
+			$("#enableYes").prop("checked","checked");
+		}
+	}
+</script>
+{/block}

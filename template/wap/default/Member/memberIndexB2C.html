@@ -1,0 +1,218 @@
+{extend name="wap/default/base" /}
+{block name="goodsHead"}{/block}
+{block name="resources"}
+<link href="__TEMP__/{$style}/public/css/my/style.css" type="text/css" rel="stylesheet" media="all" />
+<link href="__TEMP__/{$style}/public/css/my/swiper.css" type="text/css" rel="stylesheet" media="all" />
+<link href="__TEMP__/{$style}/public/css/my/user.css" type="text/css" rel="stylesheet" media="all" />
+<script src="__TEMP__/{$style}/public/js/my/jquery-1.10.2.min.js"></script>
+<script src="__TEMP__/{$style}/public/js/my/swiper.js"></script>
+<style type="text/css">
+  .tips{
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border:1px solid #F93F40; 
+    border-radius: 50%;
+    font-size: 10px;
+    line-height: 16px;
+    text-align: center;
+    color: #F93F40;
+    position: absolute;
+    z-index: 10;
+    right: 40px;
+    top: -6px;
+  }
+  .payment ul li{
+    position: relative;
+  }
+</style>
+  {/block}
+{block name="main" }
+{$resss}
+<div class="hy_tb_div" >
+  <div class="hy_tb_div1">
+    <div class="hy_tb_div2">
+		<a href="#">
+		{if condition="$member_info[user_info][user_headimg]"}
+		<img src="{:__IMG($member_info[user_info][user_headimg])}"/>
+		{else /}
+		<img src="__TEMP__/{$style}/public/images/my/user/touxiang.gif" />
+		{/if}
+		</a>
+	</div>
+    <div class="hy_tb_div3">
+        <div class="hy_tb_div4">
+        {if condition="$member_info[user_info][real_name]"}{$member_info[user_info][real_name]}{else /}{$member_info[user_info][nick_name]}{/if}
+        </div>
+        <div class="hy_tb_div4"><span>等级：{if condition="$member_info[user_info][jihuo]"}{$ns_member[0][level_name]}{else /}游客{/if}
+        {if condition="$updateUserLevel"}<em></em>{/if}</span></div>
+        <div class="hy_tb_div4">
+        <span class="f_l">会员账号: {$member_info[user_info][user_tel]}&nbsp;&nbsp;</span>
+        </div>
+        <div class="hy_tb_div4">
+        <span class="f_l">
+        推荐人: {if condition="$tui[real_name]"}{$tui[real_name]}{else /}{$tui[user_name]}{/if}
+        &nbsp;&nbsp;</span>
+        </div>
+    </div>
+	<div class="hy_tb_div8">
+		<span class="f_r">
+		
+		<a href="{:__URL('APP_MAIN/member/memberXiugai?shop_id='.$shop_id)}" class="set">编辑资料</a>
+		
+		</span>     
+		</div>
+  </div>
+
+   <div class="blank" style="height:25px;"></div>
+</div>
+<!--hy_index_div10-->
+<div class="hy_index_div10">
+     <div class="hy_index_div_ hy_index_div_wdzh fix" style="padding-bottom:5px;" >
+     {if condition="$member_info[user_info][jihuo]"}
+     <a href="javascript:void(0)" onclick="futou()" class="wysj"  style="margin-right:10px;">返利升级{if condition="$Account_info['point']>200"}<em></em>{/if}</a>
+     {else /}
+     <span class="wysj"  style="margin-right:10px;"><em></em></span>
+     {/if}
+    </div>
+    <div class="blank" style="height:0px;"></div>
+     <a href="#">
+     {if condition="$futou_level"}
+     <p>{$futou_level[max_ji]}/{$futou_level[reduce_ji]}/{$futou_level[present_ji]}</p>
+     {else /}
+    <p>0/0/0</p>
+     {/if}
+     <span>返利等级</span></a>
+     <a href="#">
+     {if condition="$accout26_sum"}
+     <p>{$accout26_sum}</p>
+     {else /}
+     <p>00.00</p>
+     {/if}
+     <span>日返利</span></a>
+     <a href="#">
+     {if condition="$team_sum"}
+     <p>{$team_sum}</p>
+     {else /}
+     <p>00.00</p>
+     {/if}
+     <span>团队返利</span></a>
+     <a href="#">
+     {if condition="$point_sum"}
+     <p>{$point_sum}</p>
+     {else /}
+     <p>00.00</p>
+     {/if}
+     <span>分享返利</span></a>
+      <div class="blank"></div>
+</div> 
+<!--mainbody-->
+<div class="payment fix">
+ <ul>
+  <li><a href="{:__URL('APP_MAIN/order/myorderlist?shop_id='.$shop_id)}"><i><img src="__TEMP__/{$style}/public/images/my/user/payment_tb1.png"/></i>
+  {if condition="$unpaidOrder neq 0"}
+    <div class="tips">{$unpaidOrder}</div>
+  {/if}
+  <span>待付款</span></a></li>
+  <li><a href="{:__URL('APP_MAIN/order/myorderlist?status=1&shop_id='.$shop_id)}"><i><img src="__TEMP__/{$style}/public/images/my/user/payment_tb2.png"/></i>
+  {if condition="$shipmentPendingOrder neq 0"}
+  <div class="tips">{$shipmentPendingOrder}</div>
+  {/if}
+  <span>待发货</span></a></li>
+  <li><a href="{:__URL('APP_MAIN/order/myorderlist?status=2&shop_id='.$shop_id)}"><i><img src="__TEMP__/{$style}/public/images/my/user/payment_tb3.png"/></i>
+  {if condition="$goodsNotReceivedOrder neq 0"}
+    <div class="tips">{$goodsNotReceivedOrder}</div>
+  {/if}
+  <span>待收货</span></a></li>
+  <li><a href="{:__URL('APP_MAIN/order/myorderlist?status=4&shop_id='.$shop_id)}"><i><img src="__TEMP__/{$style}/public/images/my/user/payment_tb4.png"/></i><span>返修/退货</span></a></li>
+  <li><a href="{:__URL('APP_MAIN/order/myorderlist?shop_id='.$shop_id)}"><i><img src="__TEMP__/{$style}/public/images/my/user/payment_tb5.png"/></i><span>全部订单</span></a></li>
+ </ul>
+</div>
+<!--integral-->
+<div class="integral fix">
+ <ul>
+  <li><a href="{:__URL('APP_MAIN/member/balanceWater')}"><i><img src="__TEMP__/{$style}/public/images/my/user/integral_tb1.png"/></i><span>开户积分</span></a></li>
+  <li><a href="{:__URL('APP_MAIN/member/integralwater')}"><i><img src="__TEMP__/{$style}/public/images/my/user/integral_tb2.png"/></i><span>消费积分</span></a></li>
+  <li><a href="javascript:void(0)" {if condition="$updateUserLevel"}onclick="shengxing({$updateUserLevel},{$constant10[val]})"{/if}><i><img src="__TEMP__/{$style}/public/images/my/user/integral_tb4.png"/></i><span>会员升级</span></a></li>
+  <li><a href="{:__URL('APP_MAIN/member/member_wallet')}"><i><img src="__TEMP__/{$style}/public/images/my/user/integral_tb3.png"/></i><span>我的钱包</span></a></li>
+ </ul>
+</div>
+<!--security-->
+  <div class="security fix">
+   <ul>
+   <li><a href="{:__URL('APP_MAIN/member/gaimi')}"><i><img src="__TEMP__/{$style}/public/images/my/user/security_tb1.png"/></i><span>账户安全</span></a></li>
+
+  {if condition="$member_info[user_info][erji_psw]"} 
+  <li><a href="{:__URL('APP_MAIN/member/erji_xiugai')}"><i><img src="__TEMP__/{$style}/public/images/my/user/security_tb2.png"/></i><span>修改二级密码</span></a></li>
+  {else /}
+  <li><a href="{:__URL('APP_MAIN/member/erji_psw')}"><i><img src="__TEMP__/{$style}/public/images/my/user/security_tb2.png"/></i><span>设置二级密码</span></a></li>
+  {/if}
+   
+   <li><a href="#"><i><img src="__TEMP__/{$style}/public/images/my/user/security_tb3.png"/></i><span>我的客服</span></a></li>
+   </ul>
+   <ul>
+   <li><a href="{:__URL('APP_MAIN/member/chuangye_zhuan')}"><i><img src="__TEMP__/{$style}/public/images/my/user/security_tb4.png"/></i><span>消费积分互转</span></a></li>
+   <li><a href="{:__URL('APP_MAIN/member/kaihu_zhuan')}"><i><img src="__TEMP__/{$style}/public/images/my/user/security_tb5.png"/></i><span>开户积分互转</span></a></li>
+   <li><a href="javascript:void(0)" onclick="logout()"><i><img src="__TEMP__/{$style}/public/images/my/user/security_tb6.png"/></i><span>退出登陆</span></a></li>
+   </ul>
+  </div>
+  <!--security_blak-->
+  <div class="security_blak fix"></div>
+
+ <script type="text/javascript">
+  function logout(){
+      $.ajax({
+              url: "{:__URL('APP_MAIN/member/logout')}",
+              type: "post",
+              success: function (res) {
+                  if (res['code'] > 0) {
+                    window.location.href=__URL("APP_MAIN/login/index");
+                  } else {
+                  if(res["message"]!=null){
+                    showBox(res["message"]);
+                  }
+                  }
+              }
+          })
+  }
+
+  function futou(){
+    if (confirm("确定复投吗？")) {
+      $.ajax({
+          url: "{:__URL('APP_MAIN/member/futoushengji')}",
+          type: "post",
+          success: function (res) {
+              // alert(JSON.stringify(res));
+              if (res['code'] > 0) {
+                  showBox(res["message"]);
+                  window.location.href=__URL("APP_MAIN/member/index");
+                } else {
+                  showBox(res["data"]);
+                }
+          }
+      })
+    }
+  }
+
+  function shengxing(id,constant10){
+    if (confirm("升星需扣除"+constant10+"开户积分，确定升星吗？")) {
+      $.ajax({
+          url: "{:__URL('APP_MAIN/member/shengxing')}",
+          type: "post",
+          data : {
+            'id' : id
+          },
+          success: function (res) {
+              // alert(JSON.stringify(res));
+              if (res['code'] > 0) {
+                  showBox(res["message"]);
+                  window.location.href=__URL("APP_MAIN/member/index");
+                } else {
+                  showBox(res["data"]);
+                }
+          }
+      })
+    }
+  }
+ </script>
+{/block}

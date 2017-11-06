@@ -1,0 +1,64 @@
+{extend name="adminblue/base" /}
+{block name="resources"/}
+<script type="text/javascript" src="__STATIC__/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="__STATIC__/bootstrap/css/bootstraps.css"></script>
+{/block}
+
+{block name="main"}
+<span style="font-size: 20px;line-height: 30px;margin-left: 20px;">昵称：{if condition="$info.real_name"}{$info.real_name}{else /}{$info.user_name}{/if} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手机号：{$info.user_tel}</span>
+<table class="table-class" style="width: 1100%;">
+	<thead>
+		<tr align="center">
+			<th width="15%">子会员</th>
+			<th width="20%">子会员</th>
+			<th width="20%">类别</th>
+			<th width="20%">复投股数</th>
+		</tr>
+		
+	</thead>
+	<tbody>
+		{foreach $son1 as $vo} 
+		<tr align="center">
+			<td>{if condition="$vo.real_name"}{$vo.real_name}{else /}{$vo.user_name}{/if}</td>
+			<td>{$vo.user_tel}</td>
+			<td>第一代</td>
+			<td>{$vo.level.max_ji}/{$vo.level.reduce_ji}/{$vo.level.present_ji}</td>
+		</tr>
+		{/foreach}
+		</tbody>
+</table>
+<table class="table-class" ><thead><tr align="center">
+			<th width="15%"></th>
+			<th width="20%"></th>
+			<th width="20%"></th>
+			<th width="20%"></th>
+		</tr></thead><tbody>
+		
+		{foreach $son2 as $vo} 
+		<tr align="center">
+			<td>{if condition="$vo.real_name"}{$vo.real_name}{else /}{$vo.user_name}{/if}</td>
+			<td>{$vo.user_tel}</td>
+			<td>第二代</td>
+			<td>{$vo.level.max_ji}/{$vo.level.reduce_ji}/{$vo.level.present_ji}</td>
+		</tr>
+		{/foreach}
+	</tbody>
+</table>
+<table class="table-class" ><thead><tr align="center">
+			<th width="15%"></th>
+			<th width="20%"></th>
+			<th width="20%"></th>
+			<th width="20%"></th>
+		</tr></thead><tbody>
+		
+		{foreach $son3 as $vo} 
+		<tr align="center">
+			<td>{if condition="$vo.real_name"}{$vo.real_name}{else /}{$vo.user_name}{/if}</td>
+			<td>{$vo.user_tel}</td>
+			<td>第三代</td>
+			<td>{$vo.level.max_ji}/{$vo.level.reduce_ji}/{$vo.level.present_ji}</td>
+		</tr>
+		{/foreach}
+	</tbody>
+</table>
+{/block}

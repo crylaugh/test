@@ -1,0 +1,160 @@
+{extend name="wap/default/base" /}
+{block name="resources"}
+<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/foundation.css">
+    <link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/normalize.css">
+<!--     <script src="__TEMP__/{$style}/public/js/ClassFirst.js"></script> -->
+<!--     <script src="__TEMP__/{$style}/public/js/ClassSub.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/common-v4.4.css">
+<!--     <script src="__TEMP__/{$style}/public/js/foundation.js"></script> -->
+ 
+<!--     <script src="__TEMP__/{$style}/public/js/foundation.alert.js"></script> -->
+<!--     <script src="__TEMP__/{$style}/public/js/Common.js"></script> -->
+    <style  type="text/css">
+.button-submit{
+	width:90%;
+	margin:0 auto;
+	margin-top:50px;
+}
+.button-submit button{
+	color:#FFF;
+	background-color:#E03115;
+	font-size:15px;
+	border:none;
+	line-height:40px;
+	height:40px;
+}
+
+
+.mt-55.mlr-15 input{
+	box-shadow: none;
+    margin: 0;
+    height: 35px;
+    border: none;
+    max-width: 72%;
+	min-width: 60%;
+    display: inline-block;
+}
+.mt-55.mlr-15>div
+{
+	line-height:50px;
+	padding-left:15px;
+	overflow: hidden;
+	background: #fff;
+}
+.mt-55.mlr-15>div:first-child{
+margin-top:45px;	
+}
+.mt-55.mlr-15>div>span{
+	width: 28%;
+	font-size: 14px;
+	display: block;
+	float:left;
+}
+.mt-55.mlr-15>div>span.left-img{
+	width: 16%;
+}
+.mt-55.mlr-15>div>span>img{
+	width: 26px;
+	height:auto;
+    float: left;
+    margin-top: 16px;
+}
+
+.mt-55.mlr-15 input:focus{
+	background: #fff;
+}
+</style>
+{/block}
+{block name="goodsHead"}
+<section class="head">
+		<a class="head_back" id="backoutapp" onclick="backPage()" href="javascript:void(0)"><i class="icon-back"></i></a>
+		<div class="head-title" id="title">{:lang('member_personal_data')}</div>
+		
+	</section>
+{/block}
+{block name="main"}
+<form class="mt-55 mlr-15" id="editpassword" style="background-color:#fff;margin:45px 0 0 0" >
+		<div><span>二级密码：</span>
+			<input type="text" id="erji_psw" style="margin:0;height:50px;border-bottom:none;"  placeholder="请输入二级密码"   onfocus="$(this).attr('type','password')">
+		</div>
+		
+		<div><span>确认二级密码：</span>
+			<input type="text" id="erji_psw2" style="box-shadow:none;margin:0;height:35px;border:none;width:auto;display:inline-block;"  placeholder="确认密码"  onfocus="$(this).attr('type','password')"/>
+			
+		</div>
+		<!--03 end-->	
+</form>
+<div  id="saveBtn"class="button-submit">
+	<a href="javascript:void(0)" onclick="btnsave()">
+		<button >{:lang('member_preservation')}</button>		
+	</a>
+</div>
+{/block}
+{block name="bottom"}{/block}
+
+{block name="javascript"}
+ 
+<script type="text/javascript">
+	var title = "";//
+	//点击返回
+	function backPage(){
+		var title=$("#title").html();
+		if(title=="{:lang('member_personal_data')}"){
+			var shop_id = "{$shop_id}";
+			if(shop_id == 0)
+				{
+				window.location.href=__URL("APP_MAIN/member/index");	
+				}
+			else{
+				window.location.href=__URL("APP_MAIN/member/index?shop_id="+shop_id);	
+			}
+		}else{
+			window.location.href=window.location.href;	
+		}
+	}
+	
+    
+    
+	function btnsave() {
+        var url = "APP_MAIN";
+        var value = "";
+        //密码(6-16)位
+        var erji_psw = $("#erji_psw").val();
+        var erji_psw2 = $("#erji_psw2").val();
+        
+        var reg = /^[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{6,16}$/;
+         if (erji_psw.length == 0) {
+        	showBox("{:lang('please_enter_the_original_password')}", {
+				time: 2000
+			});
+            return false;
+        }
+        if (!reg.test(erji_psw)) {
+        	showBox("{:lang('please_enter_6_20_new_passwords')}", {
+				time: 2000
+			});
+            return false;
+        }
+        if(erji_psw!=erji_psw2){
+        	showBox("{:lang('the_two_password_is_inconsistent')}", {
+				time: 2000
+			});
+        	 return false;
+        }
+        $.ajax({
+            url: "{:__URL('APP_MAIN/member/erji_psw')}",
+            data: { "erji_psw":erji_psw},
+            type: "post",
+            success: function (res) {
+            	//alert(JSON.stringify(res));
+                if (res['code']> 0) {
+                    backPage();
+                } else {
+                	showBox("{:lang('original_password_error')}");
+                }
+            }
+        })
+      
+    }
+</script> 
+{/block}

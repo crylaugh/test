@@ -1,0 +1,26 @@
+<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/navi.css">
+<div class="navi">
+	<div class="navi-item">
+		<nav class="navi-item_row">
+<!-- 			<a href="{:__URL('APP_MAIN')}"> -->
+<!-- 				<span> -->
+<!-- 					<img src="__TEMP__/{$style}/public/images/navimg/platform_nav_home1.png"><span>首页</span> -->
+<!-- 				</span> -->
+<!-- 			</a> -->
+
+			<a href="{:__URL('APP_MAIN/goods/goodsclassificationlist')}">
+				<span>
+					<img src="__TEMP__/{$style}/public/images/my/nav_tb1.png"><span>全部</span>
+				</span>
+			</a>
+			{volist name="categorys" id="category" length='9'}
+		
+			<a href="{:__URL('APP_MAIN/goods/goodslist?category_id='.$category['category_id'])}">
+				<span>
+					<img src="{$category.category_pic}"><span>{$category.category_name}</span>
+				</span>
+			</a>
+			{/volist}
+		</nav>
+	</div>
+</div>

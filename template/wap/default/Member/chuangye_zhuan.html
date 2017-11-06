@@ -1,0 +1,218 @@
+{extend name="wap/default/base" /}
+{block name="resources"}
+<link href="__TEMP__/{$style}/public/css/my/tbstyle.css" type="text/css" rel="stylesheet" media="all" />
+
+<script src="__TEMP__/{$style}/public/js/my/jquery-1.10.2.min.js"></script>
+<style type="text/css">
+	
+</style>
+{/block}
+
+{block name="goodsHead"}
+<section class="head">
+		<a class="head_back" id="backoutapp" onclick="backPage()" href="javascript:void(0)"><i class="icon-back"></i></a>
+		<div class="head-title" id="title">消费积分互转</div>
+		
+	</section>
+{/block}
+
+{block name="main"} 
+<div id="zdy_zjbwgx_div">
+<div class="blank" style="height:0px;"></div>
+<div id="div_nav" class="lgli_qh lgli_db">
+   
+   <ul>
+     <li class="active">消费积分互转</li>
+     <li class="">互转记录</li>
+     <div class="activeborder" style="left: 0%;"></div>
+  </ul>
+</div>
+<div class="blank" style="height:50px;"></div>
+<div class="goodsinfo" style="display:block;">	
+
+
+
+<div class="zdy_sj_srk">
+
+  <form name="wytx_jbhz" id="wytx_jbhz">
+      <div class="zdy_sj_srk1"><label for="balance">转出积分</label>
+               <div class="div_input"><input type="text" value="" name="balance" id="balance" placeholder="余额：{$arr[point]}"></div>
+               <div class="blank" style="height:0px;"></div>
+       </div>
+       
+       <div class="zdy_sj_srk1"><label for="username_zc">转出账号</label>
+               <div class="div_input" style="right:80px;"><input type="text" value="" name="username_zc" id="username_zc"></div>
+               <label style="float:right; margin-right: 20px;"><a href="javascript:;" onclick="jiance()">检测账号</a></label>
+               <div class="blank" style="height:0px;"></div>
+       </div>
+       <div id="zchy_xx" style="width:90%;"></div>
+       
+     <div class="zdy_sj_srk1"><label for="yzpassword">二级密码</label>
+               <div class="div_input"><input type="text" style="background:#fff; width:1px; border:none; padding:0px; margin:0px; margin-left:-1px;"><input type="password" value="" name="yzpassword" id="yzpassword"></div>
+               <div class="blank" style="height:0px;"></div>
+       </div>
+       <span id="current_balance" style="display: none;">{$arr[balance]}</span>
+        <div class="zdy_sj_srk4">
+        <input class="submit" value="我要转出" type="button" onclick="addAccount(2)">
+        </div>
+        
+</form>
+</div>
+
+<script>
+$(document).ready(function(){
+  $("#div_nav li").click(function(){
+	    var dqdx_div=$(this).parent().find("li");
+	    var dqdx_cd = dqdx_div.length;
+		var indexs = dqdx_div.index(this);
+		dqdx_div.removeClass("active");
+		$(this).addClass("active");
+		dqdx_cd=parseInt(1000/dqdx_cd)/10*indexs;
+		$(this).parent().find(".activeborder").css({"left":dqdx_cd +"%"});
+		$(".goodsinfo").css({"z-index":"1","opacity":"0"});
+		$(".goodsinfo").hide();
+		
+		$(".goodsinfo").eq(indexs).show();
+		$(".goodsinfo").eq(indexs).css({"z-index":"3","opacity":"1"});
+  });
+  
+  
+});
+
+var flag = false;//是否重复提交
+function addAccount(type){
+
+	var num = $("#balance").val();
+	var current_balance = $("#current_balance").text();
+	var balance = (parseInt(current_balance) - parseInt(num));
+	var username_zc = $("#username_zc").val();
+	var yzpassword = $("#yzpassword").val();
+	if( num<1 || num.length<1){
+		showBox("转出金额不能为空", {
+				time: 2000
+			});
+		$("#balance").focus();
+        return false;
+	}
+	var text = $("#remark_balance").val();
+	if(parseInt(balance) < 0){
+		showBox("余额不足", {
+				time: 2000
+			});
+            return false;
+	}
+	if(  username_zc.length<1 ){
+		showBox("请填写转出账号", {
+				time: 2000
+			});
+		  $("#username_zc").focus();
+		  return false;
+	}
+	
+	if(  yzpassword.length<1 ){
+		  showBox("请输入二级密码", {
+				time: 2000
+			});
+		  $("#yzpassword").focus();
+		  return false;
+	}
+	if (!flag) {
+		flag = true;
+		$.ajax({
+			type : "post",
+			url : "{:__URL('APP_MAIN/member/chuangye_zhuan')}",
+			data : {
+				"type" : 1,
+				"num" : num,
+				"username_zc" : username_zc,
+				"yzpassword" : yzpassword
+			},
+			success : function(data) {
+				if (data["code"] > 0) {
+					alert('转出成功');
+					window.location.reload(); 
+				}else{
+					alert(data["data"]);
+					window.location.reload(); 
+				}
+			}
+		});
+	}
+	
+}
+
+function jiance(){
+	var username_zc = $("#username_zc").val();
+	$.ajax({
+		type : "post",
+		url : "{:__URL('APP_MAIN/member/outcheck')}",
+		data : {
+			"username_zc" : username_zc
+		},
+		success : function(data) {
+			if (data) {
+				alert(data.real_name);
+			}else{
+				alert('没有此账号');
+			}
+			
+		}
+	});
+}
+
+function backPage(){
+	var title=$("#title").html();
+	if(title=="消费积分互转"){
+		var shop_id = "{$shop_id}";
+		if(shop_id == 0)
+			{
+			window.location.href=__URL("APP_MAIN/member/index");	
+			}
+		else{
+			window.location.href=__URL("APP_MAIN/member/index?shop_id="+shop_id);	
+		}
+	}else{
+		window.location.href=window.location.href;	
+	}
+}
+</script>
+
+
+</div>
+<div class="goodsinfo" style="display:none;">
+
+
+<div class="main">
+	<ul class="zjjl_div" style="display:inline-block; ">
+ 			
+          {volist name="list.data" id="vo"}
+          <li>
+          <span class="f_l">类型:{$vo['type_name']}</span>
+          <span class="f_r div_sj">金额:<span class="div_je">{$vo['number']}</span></span>
+          <div class="blank" style="height:0px;"></div>
+          <span class="f_l">交易对象:<span class="div_je">{$vo['handle_obj']}</span></span>
+          <span class="f_r div_sj">{$vo['create_time'] | getTimeStampTurnTime}</span>
+          <div class="blank" style="height:0px;"></div>
+          </li>
+          {/volist} 
+    
+ </ul>
+<!-- <div class="blank"></div>
+ <ul class="xdy_yemaa">
+      
+<li><a href="javascript:;">首页</a></li>
+<li><a href="javascript:;">上一页</a></li>
+
+<li><a href="javascript:;">下一页</a></li>
+<li><a href="javascript:;">尾页</a></li>
+
+</ul>
+</div> -->
+
+
+</div>
+<div class="blank" style="height:10px;"></div>
+<div class="fjd_footer">度京商城</div>
+<div class="blank" style="height:50px;"></div>
+
+{/block}

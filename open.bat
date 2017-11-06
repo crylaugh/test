@@ -1,0 +1,1 @@
+start c:\progra~1\Intern~1\iexplore.exe "http://dujing.0317cn.net/index.php?s=/wap/index/timedtask"

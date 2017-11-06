@@ -1,0 +1,78 @@
+{extend name="wap/default/base" /}
+{block name="resources"}
+<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/member_balance.css">
+<style type="text/css">
+#main label{
+	display: block;
+	margin: 12px 10px;
+	border-bottom: 1px solid #ccc;
+	padding: 10px;
+}
+#main input{
+	margin-right: 10px;
+}
+#main span{
+	margin-left: 10px;
+}
+</style>
+<script type="text/javascript">
+window.onerror = function() {
+	return true;
+}
+function subAgent(){
+	var pay_no = $("#pay_no").val();
+	var level = $('input:radio[name="Fruit"]:checked').val();
+	if (!level) {
+		showBox("请选择等级");
+		return false;
+	}
+    $.ajax({
+        url: "{:__URL('APP_MAIN/member/createagentorder')}",
+        type: "post",              
+        async: false,
+        data: { "level": level, "out_trade_no": pay_no},
+        dataType: "json",
+        success: function (response) {
+        	if(response.code>0){
+        		window.location.href = __URL("APP_MAIN/pay/getpayvalue?out_trade_no="+pay_no);
+         	}else{
+         		showBox("{:lang('member_recharge_failed')}");
+         	}
+        }
+    });
+}
+</script>
+{/block}
+{block name="goodsHead"}
+<section class="head">
+	<a class="head_back" id="head_back" href="javascript:window.history.go(-1)"><i class="icon-back"></i></a>
+	<div class="head-title">代理升级</div>
+</section>
+{/block}
+{block name="main"}
+<div id="main" class="detail-main">
+	<div style="margin-top: 50px;">
+		{if condition="$info[agent] >= 1"}
+		<label style="color: #ccc;"><input name="Fruit" disabled type="radio" value="1" />一级代理 <span>2000元升级为一级代理，充值可享9折</span></label> 
+		{else /}
+		<label><input name="Fruit" type="radio" value="1" />一级代理 <span>2000元升级为一级代理，充值可享9折</span></label> 
+		{/if}
+		{if condition="$info[agent] >= 2"}
+		<label style="color: #ccc;"><input name="Fruit" disabled type="radio" value="2" />二级代理 <span>4000元升级为一级代理，充值可享8折</span></label> 
+		{else /}
+		<label><input name="Fruit" type="radio" value="2" />二级代理 <span>4000元升级为一级代理，充值可享8折</span></label>
+		{/if}
+		{if condition="$info[agent] >= 3"}
+		<label style="color: #ccc;"><input name="Fruit" disabled type="radio" value="3" />三级代理 <span>6000元升级为一级代理，充值可享7折</span></label> 
+		{else /}
+		<label><input name="Fruit" type="radio" value="3" />三级代理 <span>6000元升级为一级代理，充值可享7折</span></label> 
+		{/if}
+	</div> 
+	<input type="hidden" id="pay_no" value="{$pay_no}">
+	<section class="s-btn" style="position: fixed; left: 0; right: 0; bottom: 0; height: 50px; padding: 0; z-index: 5;">
+	<button class="alipay" type="button" onclick="subAgent()">{:lang('confirm_payment')}</button>
+	</section>
+</div>
+
+{/block}
+{block name="bottom"}{/block}

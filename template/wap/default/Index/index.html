@@ -1,0 +1,513 @@
+{extend name="wap/default/base" /}
+{block name="resources"}
+<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/control_type.css">
+<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/goods_list.css">
+<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/group_buy.css">
+<!-- <link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/my/style.css"> -->
+<link rel="stylesheet" type="text/css" href="__TEMP__/{$style}/public/css/my/swiper.css">
+<script src="__TEMP__/{$style}/public/js/my/swiper.js"></script>
+<style type="text/css">
+.custom-search-button{top: 1px;}
+.sliding {overflow-y: auto;background: #ffffff;}
+.sliding::-webkit-scrollbar {display: none;}
+.sliding ul {white-space: nowrap;text-align: center;}
+.sliding ul li {padding: 10px 10px 0 10px;display: inline-block;background: #ffffff;border-right: 2px solid #f8f8f8;width:25%;}
+.sliding ul li img{width:60px;height:60px;}
+.members_goodspic{border-bottom:1px solid #f3f3f3;}
+.info p.goods-title{padding-top:10px;}
+.info p.goods-price{margin:0;margin-bottom:8px;}
+.controltype{height:35px;margin:0;width:100%;line-height:32.5px;}
+.controltype>.control_l_content{top:0;background: none;}
+.info p.goods-price>em{font-size:12px;font-weight:bold;color:#f23030;}
+.popup{background: none;padding:0;}
+.code{
+    width: 60%;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 13px;
+}
+.controltype>.control_l_content {
+    width: 34%;
+}
+.members_goodspic>ul>li.gooditem>div.info {
+     margin-top: 0px; 
+}
+.com-content{
+	min-height:600px;
+}
+.category_name{
+    height: 30px;
+    line-height: 30px;
+    padding: 5px 10px;
+    background: #fff;
+}
+.imgs{
+	height:150px;
+}
+.floor{
+	margin-top:10px;
+}
+.floor-right-nav{
+	float:right;
+	font-size:12px;
+	color:#FF4E00;
+	font-weight:bold;
+}
+.floor-left-nav{
+	float:left;
+	font-size:15px
+}
+.floor .members_goodspic ul li:nth-child(1),.floor .members_goodspic ul li:nth-child(2){
+	margin-top:0;
+}
+.floor .category_name{
+	border-bottom:1px solid #eee;
+}
+
+
+
+
+.index_news{overflow: hidden;padding: 10px 5%;background: #fff url(__TEMP__/{$style}/public/images/my/hot-new.png) no-repeat 10% center;background-size: auto 50%; height:70px; margin-top:0.6em;}
+.hot-new {height:32px;line-height:32px;position: relative;z-index: 0;}
+.hot-new .new-list{position: absolute;left: 100px;right: 10px;top:1px}
+.hot-new .kmm-more{position: absolute;right: 10px;}
+.hot-new .kmm-more a{display: block;height: 32px;width: 50px;background: url(__TEMP__/{$style}/public/images/my/kmm_more.png) right center no-repeat;background-size: auto 50%}
+.hot-new .swiper-container {height: 100%;font-size: 14px;
+}
+.hot-new .swiper-slide {white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+.index_newsbt{position: absolute; left:70px; top:5px;}
+.index_newsbt span{ display:block; height:2em; line-height:2em; border:1px solid #0b0205; width:3em; text-align:center; font-size:0.8em; border-radius:0.4em; color:#d53520;}
+/*index_Area*/
+.index_Area{ background:#fff; overflow: hidden;padding: 0px 5%; margin-top:0.6em;}
+.index_Area ul{ float:left; width:100%;}
+.index_Area ul li{ float:left; width:49.6%; padding:10px 0px;}
+.index_Area ul li .tbox{ width:100%;display:block;height:100%;overflow:hidden;}
+.index_Area ul li .tbox i{ display:block; width:4em; height:4em; margin-right:0.4em;}
+.index_Area ul li .tbox i img{ display:block; width:100%; height:100%;}
+.index_Area ul li .tbox div.index_Areacn{width:100%; padding:0em 0.4em 0em 0.4em;overflow:hidden; splay:table-cell; vertical-align:top; }
+.index_Area ul li .tbox div.index_Areacn span{ display:block; font-size:1em; color:#333333; font-weight:bold; letter-spacing:-1px;}
+.index_Area ul li .tbox div.index_Areacn p{ display:block; font-size:0.8em;}
+.Area_list1{ border-right:2px solid #e8e8e8;}
+.Area_list1 p{ color:#a809e3;}
+.Area_list2 p{ color:#ffc000;}
+/*index_bt*/
+.index_bt{ width:100%; padding:1em 0em;}
+.index_bt h3{ display:block;}
+.index_bt h3 img{display:block; height:1.4em; margin:0px auto;}
+.tbox > * {
+	height: 100%;
+	display: table-cell;
+	vertical-align: top;
+}
+
+.index_bt{ width:100%; padding:1em 0em;}
+.index_bt h3{ display:block;}
+.index_bt h3 img{display:block; height:1.4em; margin:0px auto;}
+
+.zdy_hd_li_div3 em{font-style: normal;}
+.zdy_hd_li_div3 span{font-size: 14px; font-weight: 400;}
+.zdy_hd_li_div4{ width:100%; float:left; color: #686868;display: block; font-size: 13px; line-height: 13px; margin: 2px 0px 10px 0px; padding: 0 2px; position: relative; text-align: left;}
+.zdy_hd_li_div4 del{color:#999 !important;}
+.zdy_hd_li_div4 em{font-style: normal;}
+
+.zdy_hd_li_div6{ width:100%; float:left; color: #cc3333; display: block; line-height: 13px; margin-top:8px; padding: 0 2px; position: relative; text-align: left;}
+.zdy_hd_li_div6 em{ font-size:12px;}
+.zdy_hd_li_div6 span{ font-size:15px;}
+.zdy_hd_li_div6 font{ color:#aeaeae; font-size:12px;}
+</style>
+{/block}
+{block name="goodsHead"}
+<!-- 标识：是否显示顶部关注  0：[隐藏]，1：[显示]-->
+<!-- {if condition="$is_subscribe == 0"}
+<div class="fixed-focus-on">
+	<i class="close" onclick="$('.fixed-focus-on').hide();">x</i>
+	<div class="foucs-on-block">
+		{if condition="$source_img_url != ''"}
+		<img class="user-bg" src="{:__IMG($source_img_url)}">
+		{else/}
+		<img class="user-bg" src="{:__IMG($web_info['logo'])}">
+		{/if}
+		{if condition="$source_user_name != ''"}
+		<p>{:lang("i_am_your_best_friend")}<span>{$source_user_name}</span>,{:lang("recommended_to_you_business_from_now")}</p>
+		{else/}
+		<p>{:lang("you_are_not_currently_concerned_about_the_WeChat_public_account")}，{:lang("click_on_the_attention")}</p>
+		{/if}
+		<button id="subscribe">{:lang("click_on_the_attention")}</button>
+	</div>
+</div>
+{/if} -->
+<!-- 遮罩层 -->
+<div class="shade" style="position:fixed;top:0px;left:0px;width:100%;height:100%;margin-top:0;background: rgba(0, 0, 0, 0.7);z-index: 999;display:none;"><span style="float: right; padding: 15px;font-size: 22px;color: #fff;background: transparent;" id="close">X</span></div>
+<!-- 弹出层 --> 
+<div class="popup" style="position:fixed;top: 36%;left: 0px;width: 100%;height: 100%;margin-left:0px;display:none;">
+	
+	<div class="code">
+		<div style="overflow: hidden;">
+		   <img src="{:__IMG($web_info.web_qrcode)}"  style="max-width: 100%;margin-top: 10px;"/>
+		   <div style="color:#666; margin-bottom: 10px;">{:lang("press_two_dimensional_code_public_concern_WeChat")}</div>
+		</div>
+	</div>
+</div>
+{/block}
+
+{block name="main" }
+{include file='wap/default/share'/}
+
+<div class="com-content">
+
+<!-- 搜索 -->
+<div style="width: 100%;background-color: #fff;padding: 10px 0px;">
+	{include file='wap/default/Index/controlSearch'/}
+	<style>.custom-search-button{top:0;}</style>
+</div>
+<!-- 轮播图 -->
+{include file='wap/default/Index/controlSlide'/}
+
+<!-- 公告 -->
+<!-- {include file='wap/default/Index/controlNotice' /} -->
+<!-- 导航 -->
+{include file='wap/default/Index/controlNav'/}
+
+<!-- 优惠券领取 -->
+{if condition="count($coupon_list) gt '0'"} 
+	{include file='wap/default/Index/controlCoupon'/}
+{/if}
+
+<!--hot-new-->
+<div class="index_news">
+<div class="hot-new">
+        <div class="index_newsbt"><span>最新</span></div>
+		<div class="new-list swiper-container swiper-container-horizontal">
+			<div class="swiper-wrapper">
+			{foreach name="article_list[data]" item="article"}
+				<div class="swiper-slide">　
+				<a href="{:__URL('APP_MAIN/Articlecenter/articlecontent?article_id='.$article[article_id])}">{$article.title}</a>
+				</div>
+			{/foreach}	
+			</div>
+		</div>
+</div>
+<div class="hot-new">
+        <div class="index_newsbt"><span>最热</span></div>
+		<div class="new-list swiper-container swiper-container-horizontal">
+			<div class="swiper-wrapper">
+			{foreach name="hot_article[data]" item="hot_article"}
+				<div class="swiper-slide">　
+				<a href="#">{$hot_article.title}</a>
+				</div>
+			{/foreach}	
+			</div>
+		</div>
+</div>
+</div>
+<script>
+	var newsSwiper = new Swiper('.new-list', {
+		autoplay: 5000,
+		loop: true,
+        pagination: '.swiper-pagination1',
+        direction: 'vertical',
+        slidesPerView: 1,
+        paginationClickable: true,
+        spaceBetween: 30,
+        mousewheelControl: true
+	});
+</script>
+<!--index_Area-->
+<div class="index_Area fix">
+ <ul>
+  <li class="Area_list1">
+    <a href="#" class="tbox">
+    <div class="index_Areacn">
+    <span>新人专区</span>
+    <p>30减15起</p>
+    </div>
+    <div><i><img src="__TEMP__/{$style}/public/images/my/index_Area1.png"/></i></div>
+    </a>
+  </li>
+  <li class="Area_list2">
+  <a href="{:__URL('APP_MAIN/index/discount')}" class="tbox">
+  <div class="index_Areacn">
+  <span>限免专区</span>
+  <p>免费领</p>
+  </div>
+  <div><i><img src="__TEMP__/{$style}/public/images/my/index_Area2.png"/></i></div>
+  </a>
+  </li>
+ </ul>
+</div>
+
+
+<div class="slick">
+	<a href="{$discounts_adv['adv_list'][0]['adv_url']}">
+		<img src="{:__IMG($discounts_adv['adv_list'][0]['adv_image'])}" >
+		<!-- style="height:{$discounts_adv.ap_height}px;" -->
+	</a>
+</div>
+
+
+<!-- 限时折扣 -->
+{if condition="count($discount_list) >0"}
+	{include file='wap/default/Index/controlDiscount'/}
+{/if}
+<!-- {foreach name="class_list" item="class"} -->
+	
+<!-- 	<div class="controltype"> -->
+<!-- 		<img src="__TEMP__/{$style}/public/images/hotsale.png"/> -->
+<!-- 		<span class="control_l_content" style="color:#16D810;">{$class.class_name}</span> -->
+<!-- <!-- 		<img src="__TEMP__/{$style}/public/images/navimg/top_selling.png"> --> 
+<!-- 	</div> -->
+<!-- 	<section class="members_goodspic"> -->
+<!-- 		<ul> -->
+<!-- 		{if !empty($class.goods_list)} -->
+<!-- 			{foreach name="class.goods_list" item="goods" key = "k"} -->
+<!-- 			{if condition="$k<4" } -->
+<!-- 				<li class="gooditem"> -->
+<!-- 					<div class="imgs"> -->
+<!-- 						<a href="{:__URL('APP_MAIN/goods/goodsdetail?id='.$goods.goods_info['goods_id'])}"> -->
+<!-- 						<img class="lazy" src="{:__IMG($goods['picture_info']['pic_cover_small'])}" style="max-width:100%;"> -->
+<!-- 						</a> -->
+<!-- 					</div> -->
+<!-- 					<div class="info"> -->
+<!-- 						<p class="goods-title"><a href="{:__URL('APP_MAIN/goods/goodsdetail?id='.$goods.goods_info['goods_id'])}">{$goods.goods_info.goods_name}</a></p> -->
+<!-- 						<p class="goods-price"><em>￥{$goods.goods_info.promotion_price}</em></p> -->
+<!-- 						<a href="{:__URL('APP_MAIN/goods/goodsdetail?id='.$goods.goods_info['goods_id'])}"></a> -->
+<!-- 					</div> -->
+<!-- 				</li> -->
+<!-- 			{/if} -->
+<!-- 			{/foreach} -->
+<!-- 		{else/} -->
+<!-- 			<li style="text-align:center;height: 130px;"> -->
+<!-- 				<img src="__TEMP__/{$style}/public/images/commend-type.png" style="max-width: 80px;vertical-align: middle;margin: 10px 0 2px 0;"/> -->
+<!-- 				<div style="text-align:center;color:#666;margin-top: 10px;">{:lang("shop_name")}</div> -->
+<!-- 			</li> -->
+<!-- 		{/if} -->
+<!-- 		</ul> -->
+<!-- 	</section> -->
+	
+<!-- {/foreach} -->
+<!-- 标签版块 -->
+{foreach name="goods_platform_list" item="class"}
+	
+	{if condition="!empty($class.goods_list)"}
+	<div class="controltype">
+		<img src="__TEMP__/{$style}/public/images/hotsale.png"/>
+		<span class="control_l_content" style="color:#16D810;">{$class.group_name}</span>
+<!-- 		<img src="__TEMP__/{$style}/public/images/navimg/top_selling.png"> -->
+	</div>
+	<section class="members_goodspic">
+		<ul>
+			{foreach name="class.goods_list" item="goods" key = "k"}
+				<li class="gooditem">
+					<div class="imgs">
+						<a href="{:__URL('APP_MAIN/goods/goodsdetail?id='.$goods['goods_id'])}">
+						<img class="lazy" src="{:__IMG($goods['pic_cover_small'])}" style="max-width:100%;"onerror="this.src='__TEMP__/{$style}/public/images/goods_img_empty.png'">
+						</a>
+					</div>
+					<div class="info">
+						<p class="goods-title"><a href="{:__URL('APP_MAIN/goods/goodsdetail?id='.$goods['goods_id'])}">{$goods.goods_name}</a></p>
+						<p class="goods-price"><em>￥{$goods.price}</em></p>
+						<a href="{:__URL('APP_MAIN/goods/goodsdetail?id='.$goods['goods_id'])}"></a>
+					</div>
+				</li>
+			{/foreach}
+		</ul>
+	</section>
+{/if}
+
+{/foreach}
+
+
+<div class="index_bt fix">
+  <h3><img src="__TEMP__/{$style}/public/images/my/index_bt.png"/></h3>
+</div>
+
+<!-- 楼层版块 -->
+{foreach name="block_list" item="class"}
+	{if condition="!empty($class['goods_list']) "}
+	<div class="floor">
+		<div class="category_name">
+			<span class="floor-left-nav">{$class.category_alias}</span><a class="floor-right-nav" href="{:__URL('APP_MAIN/goods/goodslist?category_id='.$class['category_id'])}">查看更多</a>
+		</div>
+		<section class="members_goodspic">
+			<ul>
+				{foreach name="class.goods_list" item="list" key='k'}
+				<li class="gooditem">
+					<div class="imgs">
+						<a href="{:__URL('APP_MAIN/goods/goodsdetail?id='.$list['goods_id'])}">
+							<img class="lazy" src="{:__IMG($list['pic_cover_mid'])}" style="max-width:100%;max-height: 100%;" onerror="this.src='__TEMP__/{$style}/public/images/goods_img_empty.png'">
+						</a>
+					</div>
+					<div class="info">
+						<p class="goods-title"><a href="{:__URL('APP_MAIN/goods/goodsdetail?id='.$list['goods_id'])}">{$list['goods_name']}</a></p>
+						<a href="{:__URL('APP_MAIN/goods/goodsdetail?id='.$list['goods_id'])}">
+						<div class="zdy_hd_li_div6">
+							<em>&nbsp;￥</em><span>{$list['promotion_price']}</span>
+						</div>
+						<div class="zdy_hd_li_div3">
+							<em>&nbsp;￥</em><span>{$list['promotion_price']-$list['jifen']}</span>+{$list['jifen']}积分
+						</div>
+						<div class="zdy_hd_li_div4">
+							<del cite="f_l"><em>&nbsp;市场价:</em>{$list['market_price']}</del>
+						</div>
+						</a>
+					</div>
+				</li>
+
+
+				
+				{/foreach}
+			</ul>
+		</section>
+	</div>
+	{/if}
+{/foreach}
+
+<!-- {foreach name="class_list" item="class"} -->
+<!-- 	{if $class.class_name=='商城热卖'} -->
+
+<!-- 	<div class="controltype"> -->
+<!-- 		<!-- <img src="__TEMP__/{$style}/public/images/shophot.png"/> --> 
+<!-- 		<!-- <span class="control_l_content" style="color:red;">{$class.class_name}</span> --> 
+<!-- 		<img src="__TEMP__/{$style}/public/images/navimg/hot_commodity.png"> -->
+<!-- 	</div> -->
+<!-- 	<section class="members_goodspic"> -->
+<!-- 		<ul> -->
+<!-- 			{foreach name="class.goods_list" item="goods" key = "k"} -->
+<!-- 			{if condition="$k<4" } -->
+<!-- 			<li class="gooditem"> -->
+<!-- 				<div class="img"> -->
+<!-- 					<a href="APP_MAIN/goods/goodsdetail?id={$goods.goods_info.goods_id}"><img class="lazy" src="{:__IMG($goods['picture_info']['pic_cover_small'])}"></a> -->
+<!-- 				</div> -->
+<!-- 				<div class="info"> -->
+<!-- 					<p class="goods-title"><a href="APP_MAIN/goods/goodsdetail?id={$goods.goods_info.goods_id}">{$goods.goods_info.goods_name}</a></p> -->
+<!-- 					<p class="goods-price"><em>￥{$goods.goods_info.promotion_price}</em></p> -->
+<!-- 					<a href="APP_MAIN/goods/goodsdetail?id={$goods.goods_info.goods_id}"></a> -->
+<!-- 				</div> -->
+<!-- 			</li> -->
+<!-- 			{/if} -->
+<!-- 			{/foreach} -->
+<!-- 		</ul> -->
+<!-- 	</section> -->
+<!-- 	{/if} -->
+<!-- {/foreach} -->
+
+<!-- {foreach name="class_list" item="class"} -->
+<!-- 	{if $class.class_name=='商城推荐'} -->
+<!-- 	<div class="controltype"> -->
+<!-- 	<!-- <img src="__TEMP__/{$style}/public/images/shoprec.png"/> --> 
+<!-- 	<!-- <span class="control_l_content" style="color:red;">{$class.class_name}</span> --> 
+<!-- 	<img src="__TEMP__/{$style}/public/images/navimg/mall_recommend.png"> -->
+<!-- 	</div> -->
+<!-- 	<section class="members_goodspic"> -->
+<!-- 		<ul> -->
+<!-- 			{foreach name="class.goods_list" item="goods" key = "k"} -->
+<!-- 			{if condition="$k<4" } -->
+<!-- 			<li class="gooditem"> -->
+<!-- 				<div class="img"> -->
+<!-- 					<a href="APP_MAIN/goods/goodsdetail?id={$goods.goods_info.goods_id}"><img class="lazy" src="{:__IMG($goods['picture_info']['pic_cover_small'])}"></a> -->
+<!-- 				</div> -->
+<!-- 				<div class="info"> -->
+<!-- 					<p class="goods-title"><a href="APP_MAIN/goods/goodsdetail?id={$goods.goods_info.goods_id}">{$goods.goods_info.goods_name}</a></p> -->
+<!-- 					<p class="goods-price"><em>￥{$goods.goods_info.promotion_price}</em></p> -->
+<!-- 					<a href="APP_MAIN/goods/goodsdetail?id={$goods.goods_info.goods_id}"></a> -->
+<!-- 				</div> -->
+<!-- 			</li> -->
+<!-- 			{/if} -->
+<!-- 			{/foreach} -->
+<!-- 		</ul> -->
+<!-- 	</section> -->
+<!-- 	{/if} -->
+<!-- {/foreach} -->
+<!-- 促销模块 -->
+<!-- {foreach name="class_list" item="class"}
+	<div class="controltype" style="background-image:url(__TEMP__/{$style}/public/images/newproduct.png);background-repeat:no-repeat;height:50px;margin:0;width:100%">
+		<hr />
+		<span class="control_l_content">{$class.class_name}</span>
+	</div>
+	<div class="slick">
+		<div><a href="APP_MAIN"><img src="__TEMP__/{$style}/public/images/guanggao_cs_02.jpg" alt=""></a></div>
+	</div>
+	<section class="members_goodspic">
+		<ul>
+			{foreach name="class.goods_list" item="goods" key = "k"}
+			{if condition="$k<4" }
+			<li class="gooditem">
+				<div class="img">
+					<a href="APP_MAIN/goods/goodsdetail?id={$goods.goods_info.goods_id}"><img class="lazy" src="{:__IMG($goods['picture_info']['pic_cover_small'])}"></a>
+				</div>
+				<div class="info">
+					<p class="goods-title"><a href="APP_MAIN/goods/goodsdetail?id={$goods.goods_info.goods_id}">{$goods.goods_info.goods_name}</a></p>
+					<p class="goods-price"><em>￥{$goods.goods_info.promotion_price}</em></p>
+					<a href="APP_MAIN/goods/goodsdetail?id={$goods.goods_info.goods_id}"><div class="goods-buy"></div></a>
+				</div>
+			</li>
+			{/if}
+			{/foreach}
+		</ul>
+	</section>
+{/foreach} -->
+</div>
+<!-- <div class="nav-pic">
+	<a  href="javascript:void(0);" class="wap">
+		<span><i></i></span>
+		<p>手机版</p>
+	</a>
+	<a href="SHOP_MAIN/index/index?default_client=shop" class="pc">
+		<span><i></i></span>
+		<p>返回电脑版</p>
+	</a>
+</div> -->
+<!-- <div class="foot-nav" style="margin-bottom: 55px;">
+		<div class="nav">
+			<a href="{:__URL('APP_MAIN/login/index')}">{:lang("login")}</a>
+			<a href="{:__URL('APP_MAIN/login/register')}">{:lang("register")}</a>
+			<a href="{:__URL('SHOP_MAIN/index/index?default_client=shop')}">{:lang("pc_version")}</a>
+			<a href="APP_MAIN/member/index">{:lang("member_member_center")}</a>
+		</div>
+		<img src="__TEMP__/{$style}/public/images/logo_copy.png" alt="" width="110" id="copyright_logo_wap">
+	</div> -->
+{/block}
+{block name="javascript"}
+<script>
+$(function(){
+//关注微信公众号弹出
+$("#subscribe").click(function(){
+	$(".shade").show();
+	$(".popup").show();
+})
+
+//关注微信公众号关闭
+$("#close").click(function(){
+	$(".shade").hide();
+	$(".popup").hide();
+})
+
+$.ajax({
+	type:"post",
+	url : "{:__URL('APP_MAIN/member/getShareContents')}",
+	success : function(data){
+		//alert(JSON.stringify(data));
+		//document.write(data.share_img);
+		/* $("#share_title").val(data['share_title']);
+		$("#share_desc").val(data['share_contents']);
+		$("#share_url").val(data['share_url']);
+		$("#share_img_url").val(data['share_img']);\ */
+		{include file='wap/default/shareContents'/}
+		}
+	})
+})
+//跳转到pc端
+function locationShop(){
+	$.ajax({
+		type : "post",
+		url : "{:__URL('APP_MAIN/index/setClientCookie')}",
+		data : { "client" : "shop"},
+		success : function(data){
+			if(data['code'] > 0){
+				location.href= __URL("SHOP_MAIN");
+			}
+		}
+	})
+}
+</script>
+{/block}
