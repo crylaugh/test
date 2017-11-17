@@ -16,6 +16,7 @@
  */
 namespace data\service;
 
+
 /**
  * 前台会员服务层
  */

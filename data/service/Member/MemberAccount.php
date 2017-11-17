@@ -55,7 +55,6 @@ class MemberAccount extends BaseService
         }else{
             $residue = $mem_level[goods_discount] - $sum;
         }
-        return $sum;
     }
 
     /**
